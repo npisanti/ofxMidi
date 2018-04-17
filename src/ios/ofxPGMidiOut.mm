@@ -9,6 +9,7 @@
  *
  */
 #include "ofxPGMidiOut.h"
+#include "ofLog.h"
 
 #import "ofxPGMidiContext.h"
 
@@ -18,7 +19,7 @@ struct ofxPGMidiOut::Destination {
 };
 
 // -----------------------------------------------------------------------------
-ofxPGMidiOut::ofxPGMidiOut(const string name) : ofxBaseMidiOut(name) {
+ofxPGMidiOut::ofxPGMidiOut(const std::string name) : ofxBaseMidiOut(name) {
 	
 	// setup global midi instance
 	ofxPGMidiContext::setup();
@@ -46,7 +47,7 @@ void ofxPGMidiOut::listPorts() {
 }
 
 // -----------------------------------------------------------------------------
-vector<string>& ofxPGMidiOut::getPortList() {
+std::vector<std::string>& ofxPGMidiOut::getPortList() {
 	PGMidi *midi = ofxPGMidiContext::getMidi();
 	portList.clear();
 	for(PGMidiDestination *dest in midi.destinations) {
@@ -61,7 +62,7 @@ int ofxPGMidiOut::getNumPorts() {
 }
 
 // -----------------------------------------------------------------------------
-string ofxPGMidiOut::getPortName(unsigned int portNumber) {
+std::string ofxPGMidiOut::getPortName(unsigned int portNumber) {
 	
 	PGMidi *midi = ofxPGMidiContext::getMidi();
 	
@@ -101,7 +102,7 @@ bool ofxPGMidiOut::openPort(unsigned int portNumber) {
 }
 
 // -----------------------------------------------------------------------------
-bool ofxPGMidiOut::openPort(string deviceName) {
+bool ofxPGMidiOut::openPort(std::string deviceName) {
 	
 	PGMidi *midi = ofxPGMidiContext::getMidi();
 	
@@ -125,7 +126,7 @@ bool ofxPGMidiOut::openPort(string deviceName) {
 }
 
 // -----------------------------------------------------------------------------
-bool ofxPGMidiOut::openVirtualPort(string portName) {
+bool ofxPGMidiOut::openVirtualPort(std::string portName) {
 	ofLogWarning("ofxMidiOut") << "couldn't open virtual port \"" << portName << "\"";
 	ofLogWarning("ofxMidiOut") << "virtual ports are currently not supported on iOS";
 	return false;
